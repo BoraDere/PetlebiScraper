@@ -4,7 +4,61 @@ import re
 class PetlebiSpider(scrapy.Spider):
     name = "petlebi"
     start_urls = [
-        "https://www.petlebi.com/kedi-mamasi?page=1",
+        "https://www.petlebi.com/kedi-mamasi",
+        "https://www.petlebi.com/kedi-vitamin-ve-ek-besinleri",
+        "https://www.petlebi.com/kedi-konserve-mamasi",
+        "https://www.petlebi.com/kedi-odul-mamasi",
+        "https://www.petlebi.com/kedi-kumu",
+        "https://www.petlebi.com/kedi-tirmalama-tahtasi",
+        "https://www.petlebi.com/kedi-tasmasi",
+        "https://www.petlebi.com/kedi-evi",
+        "https://www.petlebi.com/kedi-tuvaleti",
+        "https://www.petlebi.com/kedi-mama-ve-su-kabi",
+        "https://www.petlebi.com/kedi-yataklari",
+        "https://www.petlebi.com/kedi-oyuncaklari",
+        "https://www.petlebi.com/kedi-kapisi",
+        "https://www.petlebi.com/kedi-tasima-cantasi",
+        "https://www.petlebi.com/kedi-sampuani",
+        "https://www.petlebi.com/kedi-cimi",
+        "https://www.petlebi.com/kedi-pire-kene-urunleri",
+        "https://www.petlebi.com/kedi-bakim-urunleri",
+        "https://www.petlebi.com/kedi-otu",
+        "https://www.petlebi.com/kedi-tarak-ve-fircalari",
+        "https://www.petlebi.com/kedi-uzaklastirici-sprey",
+        "https://www.petlebi.com/kopek-mamasi",
+        "https://www.petlebi.com/kopek-kemigi",
+        "https://www.petlebi.com/kopek-konserve-mamasi",
+        "https://www.petlebi.com/kopek-vitamin-ve-ek-besini",
+        "https://www.petlebi.com/kopek-odul-mamasi",
+        "https://www.petlebi.com/kopek-oyuncaklari",
+        "https://www.petlebi.com/kopek-tasmalari-kayislari",
+        "https://www.petlebi.com/egitim-ekipmani",
+        "https://www.petlebi.com/kopek-bahce-urunleri",
+        "https://www.petlebi.com/kopek-yataklari",
+        "https://www.petlebi.com/kopek-tasima-cantasi",
+        "https://www.petlebi.com/kopek-kulubesi",
+        "https://www.petlebi.com/kopek-mama-ve-su-kabi",
+        "https://www.petlebi.com/kopek-elbiseleri",
+        "https://www.petlebi.com/kopek-araba-urunleri",
+        "https://www.petlebi.com/kopek-bakim-urunleri",
+        "https://www.petlebi.com/kopek-parfumu",
+        "https://www.petlebi.com/kopek-tarak-ve-fircasi",
+        "https://www.petlebi.com/kopek-uzaklastirici-sprey",
+        "https://www.petlebi.com/kopek-sampuani",
+        "https://www.petlebi.com/kopek-paraziter-pire-kene-engelleyici",
+        "https://www.petlebi.com/kus-yemleri",
+        "https://www.petlebi.com/kus-kafesleri",
+        "https://www.petlebi.com/kus-oyuncaklari",
+        "https://www.petlebi.com/kus-yuvalari",
+        "https://www.petlebi.com/kus-kumu",
+        "https://www.petlebi.com/kus-bakim-urunleri",
+        "https://www.petlebi.com/kus-vitaminleri-saglik-urunleri",
+        "https://www.petlebi.com/kus-gaga-taslari",
+        "https://www.petlebi.com/kus-krakeri-ve-odulleri",
+        "https://www.petlebi.com/kus-kafesi-ekipmanlari",
+        "https://www.petlebi.com/hamster-petshop-urunleri",
+        "https://www.petlebi.com/tavsan-petshop-urunleri",
+        "https://www.petlebi.com/guinea-pig-urunleri",
     ]
     allowed_domains = [
         "petlebi.com",
@@ -12,6 +66,8 @@ class PetlebiSpider(scrapy.Spider):
     # custom_settings = {
     #     'DOWNLOAD_DELAY': 2,  # Add a 2-second delay between requests
     # }
+
+    start_urls = [url + "?page=1" for url in start_urls]
 
     def parse(self, response):
 
