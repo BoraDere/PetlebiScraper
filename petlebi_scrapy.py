@@ -101,13 +101,11 @@ class PetlebiSpider(scrapy.Spider):
             
             
     def parse_product(self, response):
-        # Extract data from the product page
         barcode = response.xpath('//div[text()="BARKOD"]/following-sibling::div/text()').get()
         price = response.css('div p span.new-price::text').get()
         images = response.css('div a::attr(data-image)').getall()
         description = re.sub(r'\s+', ' ', ' '.join([text.strip() for text in response.xpath('//*[@id="productDescription"]//text()').getall()]))
 
-        # Yield a dictionary with the product data
         yield {
             'url': response.meta['url'],
             'name': response.meta['name'],
