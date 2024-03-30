@@ -64,10 +64,10 @@ class PetlebiSpider(scrapy.Spider):
         "petlebi.com",
     ]
     # custom_settings = {
-    #     'DOWNLOAD_DELAY': 2,  # Add a 2-second delay between requests
+    #     'DOWNLOAD_DELAY': 2,  # 2 second delay between requests
     # }
 
-    start_urls = [url + "?page=1" for url in start_urls]
+    start_urls = [url + "?page=1" for url in start_urls] # 301 ?
 
     def parse(self, response):
 
