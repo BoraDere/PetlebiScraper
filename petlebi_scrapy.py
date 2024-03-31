@@ -63,9 +63,9 @@ class PetlebiSpider(scrapy.Spider):
     allowed_domains = [
         "petlebi.com",
     ]
-    # custom_settings = {
-    #     'DOWNLOAD_DELAY': 2,  # 2 second delay between requests
-    # }
+    custom_settings = {
+        'FEED_EXPORT_ENCODING': 'utf-8',
+    }
 
     start_urls = [url + "?page=1" for url in start_urls] # 301 ?
 
@@ -81,24 +81,22 @@ class PetlebiSpider(scrapy.Spider):
             product_id = product.css('::attr(id)').get().replace('product', '')
             brand = product.css('::attr(data-gtm-product)').get().split('brand":"')[1].split('"')[0]
 
-            yield scrapy.Request(url,
-                                 callback=self.parse_product,
-                                 meta={
-                                     'url': url, 
-                                     'name': name,
-                                     'stock': stock, 
-                                     'category': category,
-                                     'id': product_id,
-                                     'brand': brand
-                                 }
-                                )
+            yield scrapy.Request(url, 
+                                 callback=self.parse_product, 
+                                 meta={'url': url, 
+                                       'name': name, 
+                                       'stock': stock, 
+                                       'category': category, 
+                                       'id': product_id, 
+                                       'brand': brand
+                                       }
+                                 )
 
         current_page = response.url.split('=')[-1]
         current_page = int(current_page)
         next_page = response.url.split('?')[0] + '?page=' + str(current_page + 1)
         yield scrapy.Request(next_page, callback=self.parse)
 
-            
             
     def parse_product(self, response):
         barcode = response.xpath('//div[text()="BARKOD"]/following-sibling::div/text()').get()
@@ -119,16 +117,3 @@ class PetlebiSpider(scrapy.Spider):
             'id': response.meta['id'],
             'brand': response.meta['brand']
         }
-
-
-    # product URL: response.css('div a.p-link::attr(href)').extract()
-    # product name: response.css('div a.p-link::attr(title)').get()
-    # product barcode: product URL -> response.xpath('//div[text()="BARKOD"]/following-sibling::div/text()').get()
-    # product price: response.xpath('//*[@class="commerce-discounts"]/text()').get()
-    # product stock: response.css('div a.p-link::attr(data-gtm-product)').get().split('dimension2')[1].split('dimension3')[0].split('"')[2]
-    # product images: product URL -> response.css('div a::attr(data-image)').getall()
-    # description: re.sub(r'\s+', ' ', ' '.join([text.strip() for text in response.xpath('//*[@id="productDescription"]//text()').getall()]))
-    # sku: barcode ?
-    # category: response.css('div a.p-link::attr(data-gtm-product)').get().split('category":')[1].split('","quantity')[0].split('"')[1]
-    # product id: response.css('div a.p-link::attr(id)').get().replace('product', '')
-    # brand: response.css('div a.p-link::attr(data-gtm-product)').get().split('brand":"')[1].split('"')[0]
