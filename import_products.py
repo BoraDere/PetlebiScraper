@@ -3,7 +3,7 @@ import pymysql
 import json
 
 
-with open('petlebi_products.json') as f:
+with open('petlebi_products.json', encoding='utf-8') as f:
     data = json.load(f)
 
 config = configparser.ConfigParser()
@@ -18,9 +18,7 @@ conn = pymysql.connect(user=user, password=password, host=host, database=databas
 
 try:
     with conn.cursor() as cursor:
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database}")
-
-        cursor.execute("USE petlebi")
+        cursor.execute(f"USE {database}")
 
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS petlebi (
